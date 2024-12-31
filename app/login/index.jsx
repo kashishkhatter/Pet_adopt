@@ -2,10 +2,9 @@ import { View, Text, Image, Pressable } from "react-native";
 import React, { useCallback } from "react";
 import Colors from "./../../constants/Colors";
 import * as WebBrowser from "expo-web-browser";
-import { useOAuth, useAuth } from "@clerk/clerk-expo";
+import { useOAuth } from "@clerk/clerk-expo";
 import * as Linking from "expo-linking";
 
-//login screen
 // Ensure OAuth flow completes properly
 WebBrowser.maybeCompleteAuthSession();
 
@@ -21,26 +20,21 @@ export const useWarmUpBrowser = () => {
 const LoginScreen = () => {
   useWarmUpBrowser();
   const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
-  const { session, signOut, setSession } = useAuth(); // using setSession instead of signIn
 
   const onPress = useCallback(async () => {
     try {
-      // If there's an existing session, sign out to clear it
-      if (session) {
-        console.log("Existing session found. Signing out...");
-        await signOut(); // Sign out to start fresh
-      }
-
       console.log("Starting OAuth flow...");
-      // Start the OAuth flow
-      const { createdSessionId } = await startOAuthFlow({
+
+      // Start the OAuth flow and get session details
+      const { createdSessionId, setActive } = await startOAuthFlow({
         redirectUrl: Linking.createURL("/(tabs)/home", { scheme: "myapp" }),
       });
 
       if (createdSessionId) {
         console.log("Session created successfully:", createdSessionId);
-        // Set the created session as active using setSession
-        await setSession({ sessionId: createdSessionId });
+
+        // Set the created session as active
+        await setActive({ session: createdSessionId });
         console.log("Session set successfully");
       } else {
         console.error("No session created during OAuth flow");
@@ -48,7 +42,7 @@ const LoginScreen = () => {
     } catch (err) {
       console.error("OAuth error", err);
     }
-  }, [startOAuthFlow, session, signOut, setSession]);
+  }, [startOAuthFlow]);
 
   return (
     <View

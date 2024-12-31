@@ -102,6 +102,9 @@ export default function PetDetails() {
     }
   };
 
+  // Check if the logged-in user is the one who listed the pet
+  const isPetOwner = user?.primaryEmailAddress?.emailAddress === pet?.email;
+
   return (
     <View>
       {/* Pet Info - pass 'pet' para with selected pet info to petinfo component to display details */}
@@ -121,7 +124,7 @@ export default function PetDetails() {
         ></View>
       </ScrollView>
 
-      {/* Adopt me button (should stay in place: Not scrollable so keep this out of scrollview) */}
+      {/* Conditional button or message */}
       <View
         style={{
           position: "absolute",
@@ -129,24 +132,44 @@ export default function PetDetails() {
           bottom: 0,
         }}
       >
-        <TouchableOpacity
-          onPress={InitiateChat}
-          style={{
-            padding: 15,
-            backgroundColor: Colors.PRIMARY,
-            alignItems: "center", // Center the text
-          }}
-        >
-          <Text
+        {isPetOwner ? (
+          <View
             style={{
-              color: "white", // Ensure text color contrasts background
-              fontFamily: "outfit-medium",
-              fontSize: 20,
+              padding: 15,
+              backgroundColor: Colors.GRAY, // Use a different background color for the message
+              alignItems: "center",
             }}
           >
-            Adopt Me
-          </Text>
-        </TouchableOpacity>
+            <Text
+              style={{
+                color: "white",
+                fontFamily: "outfit-medium",
+                fontSize: 20,
+              }}
+            >
+              Posted by you
+            </Text>
+          </View>
+        ) : (
+          <TouchableOpacity
+            onPress={InitiateChat}
+            style={{
+              padding: 15,
+              backgroundColor: Colors.PRIMARY,
+              alignItems: "center", // Center the text
+            }}
+          >
+            <Text
+              style={{
+                color: "white", // Ensure text color contrasts background
+                fontFamily: "outfit-medium",
+                fontSize: 20,
+              }}
+            >
+              Adopt Me
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

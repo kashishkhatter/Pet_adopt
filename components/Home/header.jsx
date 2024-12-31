@@ -11,7 +11,7 @@ const Header = () => {
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        marginTop: 5,
+        marginTop: 15,
       }}
     >
       <View>
@@ -27,6 +27,7 @@ const Header = () => {
           style={{
             fontFamily: "outfit-medium",
             fontSize: 25,
+            marginBottom: 10,
           }}
         >
           {user?.fullName} {/*display username of logged in user*/}

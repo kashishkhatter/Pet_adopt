@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "pet-adopt-app",
+    "name": "FurEver Homes",
     "slug": "pet-adopt-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,7 +15,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.kashish004.petadoptapp"
     },
     "web": {
       "bundler": "metro",
@@ -34,15 +38,22 @@
         }
       ],
       [
-      "expo-image-picker",
+        "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
     ],
-
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "438a07af-d2d9-4d32-8e68-5cf3c403eb1b"
+      }
     }
   }
 }

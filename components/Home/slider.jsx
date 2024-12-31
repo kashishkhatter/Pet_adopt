@@ -46,6 +46,7 @@ export default function Slider() {
               shadowOpacity: 0.3,
               shadowRadius: 4,
               elevation: 5,
+              marginVertical: 10,
             }}
           >
             <Image

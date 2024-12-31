@@ -17,15 +17,18 @@ export default function Inbox() {
 
   useEffect(() => {
     // Map other users whenever userList changes
-    const list = userList.map((record) => {
-      const otherUser = record.users?.filter(
-        (u) => u?.email !== user?.primaryEmailAddress?.emailAddress
-      )[0]; // Take the first "other" user
-      return {
-        docId: record.id,
-        ...otherUser,
-      };
-    });
+    const list = userList
+      .map((record) => {
+        const otherUser = record.users?.filter(
+          (u) => u?.email !== user?.primaryEmailAddress?.emailAddress
+        )[0]; // Take the first "other" user
+        return {
+          docId: record.id,
+          ...otherUser,
+        };
+      })
+      .filter((item) => item?.email); // Filter out chats where the user is the only participant
+
     setMappedUserList(list);
   }, [userList]);
 

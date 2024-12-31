@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@clerk/clerk-expo": "^2.6.6",
+    "@clerk/remix": "^4.4.6",
     "@expo/metro-runtime": "^4.0.0",
     "@expo/vector-icons": "^14.0.2",
     "@react-native-picker/picker": "2.9.0",
